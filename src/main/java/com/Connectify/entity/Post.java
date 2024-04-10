@@ -2,6 +2,7 @@ package com.Connectify.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -19,6 +20,9 @@ public class Post {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
 	public Long getPostId() {
 		return postId;
@@ -50,6 +54,14 @@ public class Post {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
     

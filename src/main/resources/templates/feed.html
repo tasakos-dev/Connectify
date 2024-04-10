@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feed | Connectify</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .list-group-item {
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125); /* Border between list items */
+        }
+        .list-group-item:last-child {
+            border-bottom: none; /* Remove border for last list item */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>Feed</h1>
+            </div>
+            <div class="col-md-4 text-right">
+                <p>Welcome, <span th:text="${username}"></span>!</p>
+                <p><span th:text="${plan}"></span> PLan.</p>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Form for posting -->
+        <h2>Create a New Post</h2>
+        <form action="/feed/createPost" method="post">
+            <div class="form-group">
+                <textarea class="form-control" rows="3" name="content" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+        <hr>
+
+        <!-- Posts from people the user follows -->
+        <h2>Posts from people you follow</h2>
+        <div class="list-group">
+            <div th:each="post : ${followedPosts}">
+                <div class="list-group-item">
+                    <h5 class="mb-1" th:text="${post.user.username}"></h5>
+                    <p class="mb-1" th:text="${post.content}"></p>
+                    <small class="text-muted">Comments:</small>
+                    <!-- Display comments -->
+                    <small class="text-muted">Comments:</small>
+                    <div th:each="comment : ${post.comments}">
+                        <p class="mb-1" th:text="${comment.user.username + ': ' + comment.content}"></p>
+                    </div>
+                    
+                    <form action="/feed/comment" method="post" class="comment-form">
+                        <input type="hidden" name="postId" th:value="${post.postId}" /> <!-- Hidden input for post ID -->
+                        <div class="form-group">
+                            <textarea class="form-control" rows="1" name="content" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <hr> <!-- Border between sections -->
+
+        <!-- User's own posts -->
+        <h2>Your Posts</h2>
+        <div class="list-group">
+            <div th:each="post : ${userPosts}">
+                <div class="list-group-item">
+                    <h5 class="mb-1" th:text="${post.user.username}"></h5>
+                    <p class="mb-1" th:text="${post.content}"></p>
+                   <!-- Form for submitting comments -->
+                    
+                    <!-- Display comments -->
+                    <small class="text-muted">Comments:</small>
+                    <div th:each="comment : ${post.comments}">
+                        <p class="mb-1" th:text="${comment.user.username + ': ' + comment.content}"></p>
+                    </div>
+                    
+                    <form action="/feed/comment" method="post" class="comment-form">
+                        <input type="hidden" name="postId" th:value="${post.postId}" /> <!-- Hidden input for post ID -->
+                        <div class="form-group">
+                            <textarea class="form-control" rows="1" name="content" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <hr> <!-- Border between sections -->
+
+        <!-- List of followers -->
+        <h2>Your Followers</h2>
+        <div class="list-group">
+            <div th:each="follower : ${followers}">
+                <div class="list-group-item" th:text="${follower.username}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

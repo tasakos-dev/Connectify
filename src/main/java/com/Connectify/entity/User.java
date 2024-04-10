@@ -17,6 +17,9 @@ public class User {
 
     @Column(nullable = false)
     private String passwordHash;
+    
+    @Column(nullable = false)
+    private boolean paidPlan;
 
 	public Long getUserId() {
 		return userId;
@@ -50,5 +53,14 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 
+	public boolean isPaidPlan() {
+		return paidPlan;
+	}
+
+	public void setPaidPlan(boolean paid_plan) {
+		this.paidPlan = paid_plan;
+	}
+
+	
     
 }
