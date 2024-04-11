@@ -9,7 +9,7 @@ import com.Connectify.entity.UserData;
 import com.Connectify.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends FeedService implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -41,5 +41,13 @@ public class UserServiceImpl implements UserService {
 	    
 	    userRepository.save(newUser);
 	}
+	
+	  @Override
+	    public String getPlan(String username) {
+	    	return userRepository.findByUsername(username).isPaidPlan() ? "Premium" : "Free" ;
+	    }
+	    
+	
+	
 
 }

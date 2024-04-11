@@ -6,5 +6,6 @@ import com.Connectify.entity.Comment;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    // Define additional methods if needed
+    
+    
 }

@@ -38,13 +38,17 @@
 		</div>
 		
 		<div class="form-group">
-		    <label for="paidPlan">Select Plan:</label>
+		    <label>Select Plan:</label>
 		    <div class="form-check">
-		        <input class="form-check-input" type="checkbox" th:field="*{paidPlan}" name="paidPlan">
-		        <label class="form-check-label" for="paidPlan">Paid Plan</label>
+		        <input class="form-check-input" type="radio" th:field="*{paidPlan}" id="freePlan" value="false" checked>
+		        <label class="form-check-label" for="freePlan">Free Plan</label>
+		    </div>
+		    <div class="form-check">
+		        <input class="form-check-input" type="radio" th:field="*{paidPlan}" id="premiumPlan" value="true">
+		        <label class="form-check-label" for="premiumPlan">Premium Plan</label>
 		    </div>
 		</div>
-		
+
         
         <br/>
  

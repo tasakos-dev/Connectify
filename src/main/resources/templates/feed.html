@@ -30,13 +30,16 @@
             </div>
             <div class="col-md-4 text-right">
                 <p>Welcome, <span th:text="${username}"></span>!</p>
-                <p><span th:text="${plan}"></span> PLan.</p>
+                <p><span th:text="${plan}"></span> Plan.</p>
                 <a href="/logout" class="btn btn-danger">Logout</a>
             </div>
         </div>
         <hr>
 
         <!-- Form for posting -->
+        <div class="mb4">
+        	<span class="alert alert-danger" th:if="${errorMessage}"  th:text="${errorMessage}">Error</span>
+		<br></br>
         <h2>Create a New Post</h2>
         <form action="/feed/createPost" method="post">
             <div class="form-group">
@@ -99,16 +102,29 @@
             </div>
         </div>
 
-        <hr> <!-- Border between sections -->
-
         <!-- List of followers -->
-        <h2>Your Followers</h2>
-        <div class="list-group">
-            <div th:each="follower : ${followers}">
-                <div class="list-group-item" th:text="${follower.username}"></div>
-            </div>
-        </div>
-    </div>
+		<h2>Your Followers</h2>
+		<div class="list-group">
+		    <div th:each="follower : ${followers}">
+		        <div class="list-group-item">
+		            <span th:text="${follower.username}"></span>
+		            <form action="/feed/unfollow" method="post" style="display: inline;">
+		                <input type="hidden" name="followerId" th:value="${follower.userId}" />
+		                <button type="submit" class="btn btn-danger btn-sm">X</button>
+		            </form>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- Search and follow user form -->
+		<h2>Search and Follow User</h2>
+		<form action="/feed/follow" method="post">
+		    <div class="form-group">
+		        <label for="searchEmail">Search by Email:</label>
+		        <input type="email" class="form-control" id="searchEmail" name="email" required />
+		    </div>
+		    <button type="submit" class="btn btn-primary">Search and Follow</button>
+		</form>
 
     <!-- Include Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
