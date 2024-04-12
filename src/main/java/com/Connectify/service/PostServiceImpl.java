@@ -31,8 +31,8 @@ public class PostServiceImpl extends FeedService implements PostService{
 
     // Method to retrieve posts from people the user follows
     @Override
-    public List<Post> getFollowedPosts(String username) {
-        User user = userRepository.findByUsername(username);
+    public List<Post> getFollowedPosts(String email) {
+        User user = userRepository.findByEmail(email);
         List<User> followingUsers = new ArrayList<>();
         for (Follower following : followerRepository.findFollowingByFollower(user)) {
         	followingUsers.add(following.getFollowing());
@@ -45,8 +45,8 @@ public class PostServiceImpl extends FeedService implements PostService{
 
     // Method to retrieve the user's own posts
     @Override
-    public List<Post> getUserPosts(String username) {
-        User user = userRepository.findByUsername(username);
+    public List<Post> getUserPosts(String email) {
+        User user = userRepository.findByEmail(email);
         
         List<Post> posts = postRepository.findByUserOrderByCreatedAtDesc(user);
         
@@ -63,11 +63,11 @@ public class PostServiceImpl extends FeedService implements PostService{
 
 
     @Override
-    public void createPost(String content, String username) {
+    public void createPost(String content, String email) {
         // Create a new post
         Post post = new Post();
         post.setContent(content);
-        post.setUser(userRepository.findByUsername(username));
+        post.setUser(userRepository.findByEmail(email));
         post.setCreatedAt(LocalDateTime.now());
         
         // Save the post to the database

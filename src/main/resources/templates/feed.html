@@ -29,7 +29,7 @@
                 <h1>Feed</h1>
             </div>
             <div class="col-md-4 text-right">
-                <p>Welcome, <span th:text="${username}"></span>!</p>
+                <p>Welcome, <span th:text="${email}"></span>!</p>
                 <p><span th:text="${plan}"></span> Plan.</p>
                 <a href="/logout" class="btn btn-danger">Logout</a>
             </div>
@@ -54,13 +54,13 @@
         <div class="list-group">
             <div th:each="post : ${followedPosts}">
                 <div class="list-group-item">
-                    <h5 class="mb-1" th:text="${post.user.username}"></h5>
+                    <h5 class="mb-1" th:text="${post.user.email}"></h5>
                     <p class="mb-1" th:text="${post.content}"></p>
                     <small class="text-muted">Comments:</small>
                     <!-- Display comments -->
                     <small class="text-muted">Comments:</small>
                     <div th:each="comment : ${post.comments}">
-                        <p class="mb-1" th:text="${comment.user.username + ': ' + comment.content}"></p>
+                        <p class="mb-1" th:text="${comment.user.email + ': ' + comment.content}"></p>
                     </div>
                     
                     <form action="/feed/comment" method="post" class="comment-form">
@@ -81,14 +81,14 @@
         <div class="list-group">
             <div th:each="post : ${userPosts}">
                 <div class="list-group-item">
-                    <h5 class="mb-1" th:text="${post.user.username}"></h5>
+                    <h5 class="mb-1" th:text="${post.user.email}"></h5>
                     <p class="mb-1" th:text="${post.content}"></p>
                    <!-- Form for submitting comments -->
                     
                     <!-- Display comments -->
                     <small class="text-muted">Comments:</small>
                     <div th:each="comment : ${post.comments}">
-                        <p class="mb-1" th:text="${comment.user.username + ': ' + comment.content}"></p>
+                        <p class="mb-1" th:text="${comment.user.email + ': ' + comment.content}"></p>
                     </div>
                     
                     <form action="/feed/comment" method="post" class="comment-form">
@@ -107,7 +107,7 @@
 		<div class="list-group">
 		    <div th:each="follower : ${followers}">
 		        <div class="list-group-item">
-		            <span th:text="${follower.username}"></span>
+		            <span th:text="${follower.email}"></span>
 		            <form action="/feed/unfollow" method="post" style="display: inline;">
 		                <input type="hidden" name="followerId" th:value="${follower.userId}" />
 		                <button type="submit" class="btn btn-danger btn-sm">X</button>

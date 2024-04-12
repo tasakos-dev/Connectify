@@ -40,12 +40,9 @@ public class UserController {
 	public String registerUser(@ModelAttribute("user_data")UserData userData,Model theModel) {
 		
 	
-		if(userData.getName().isEmpty()) {
-			theModel.addAttribute("errorMessage", "Blank name");
-			return "users/register_form";
-		}
+
 		
-		else if(userData.getEmail().isEmpty()) {
+		if(userData.getEmail().isEmpty()) {
 			theModel.addAttribute("errorMessage", "Blank email");
 			return "users/register_form";
 		}
@@ -58,7 +55,7 @@ public class UserController {
 			theModel.addAttribute("errorMessage", "Wrong email format");
 			return "users/register_form";
 		}
-		User user = userService.findByName(userData.getName());
+		User user = userService.findByEmail(userData.getEmail());
 		if (user != null ) {
 			theModel.addAttribute("errorMessage", "User exists");
 			return "users/register_form";

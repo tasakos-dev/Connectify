@@ -23,10 +23,7 @@ public class UserServiceImpl extends FeedService implements UserService{
 		return userRepository.findByEmail(email);
 	}
 	
-	@Override
-	public User findByName(String name) {
-		return userRepository.findByUsername(name);
-	}
+
 
 	@Override
 	public void register(UserData userData) {
@@ -34,7 +31,6 @@ public class UserServiceImpl extends FeedService implements UserService{
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	    String encodedPassword = passwordEncoder.encode(userData.getPassword());
 	    
-	    newUser.setUsername(userData.getName());
 	    newUser.setEmail(userData.getEmail());
 	    newUser.setPaidPlan(userData.isPaidPlan());
 	    newUser.setPasswordHash(encodedPassword);
@@ -43,8 +39,8 @@ public class UserServiceImpl extends FeedService implements UserService{
 	}
 	
 	  @Override
-	    public String getPlan(String username) {
-	    	return userRepository.findByUsername(username).isPaidPlan() ? "Premium" : "Free" ;
+	    public String getPlan(String email) {
+	    	return userRepository.findByEmail(email).isPaidPlan() ? "Premium" : "Free" ;
 	    }
 	    
 	

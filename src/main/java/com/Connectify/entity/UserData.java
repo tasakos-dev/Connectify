@@ -12,19 +12,12 @@ public class UserData {
 	
 	public UserData(String name, String email,String password, boolean paidPlan) {
 		super();
-		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.paidPlan = paidPlan;
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getEmail() {
 		return email;

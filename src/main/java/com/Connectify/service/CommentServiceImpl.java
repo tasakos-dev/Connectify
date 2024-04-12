@@ -26,14 +26,14 @@ public class CommentServiceImpl extends FeedService implements CommentService{
     }
 
     @Override
-    public void addComment(String username, Long postId, String content) throws MaxComment{
+    public void addComment(String email, Long postId, String content) throws MaxComment{
     	Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
 
-        // Create the comment object
+        
         Comment comment = new Comment();
-        comment.setUser(userRepository.findByUsername(username)); // Assuming the user's username is used to identify the user
+        comment.setUser(userRepository.findByEmail(email)); 
         comment.setContent(content);
-        comment.setPost(post); // Associate the comment with the post
+        comment.setPost(post); 
         comment.setCreatedAt(LocalDateTime.now());
 
         // Save the comment
