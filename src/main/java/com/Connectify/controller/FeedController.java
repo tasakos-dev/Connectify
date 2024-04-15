@@ -14,8 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Connectify.entity.Post;
 import com.Connectify.entity.User;
+import com.Connectify.exception.MaxCommentException;
 import com.Connectify.service.CommentService;
-import com.Connectify.service.FeedService;
 import com.Connectify.service.FollowerService;
 import com.Connectify.service.PostService;
 import com.Connectify.service.UserService;
@@ -85,8 +85,8 @@ public class FeedController {
         String email = userDetails.getUsername();
         try {
         	commentService.addComment(email, postId, content);
-		} catch (Exception e) {
-			System.err.println("hello");
+		} catch (MaxCommentException e) {
+			System.err.println(e.getMessage());
 			redirectAttributes.addAttribute("errorMessage", e.getMessage());
 		}
         

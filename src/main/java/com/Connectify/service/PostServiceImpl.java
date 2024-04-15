@@ -16,6 +16,7 @@ import com.Connectify.entity.Post;
 import com.Connectify.entity.User;
 import com.Connectify.repository.FollowerRepository;
 import com.Connectify.repository.PostRepository;
+import com.Connectify.repository.UserRepository;
 
 @Service
 public class PostServiceImpl extends FeedService implements PostService{
@@ -23,8 +24,8 @@ public class PostServiceImpl extends FeedService implements PostService{
 	private final FollowerRepository followerRepository;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, FollowerRepository followerRepository) {
-    	super();
+    public PostServiceImpl(PostRepository postRepository, FollowerRepository followerRepository, UserRepository userRepository) {
+    	super(userRepository);
         this.postRepository = postRepository;
         this.followerRepository = followerRepository;
     }
@@ -38,7 +39,14 @@ public class PostServiceImpl extends FeedService implements PostService{
         	followingUsers.add(following.getFollowing());
         }
         List<Post> posts = postRepository.findByUserInOrderByCreatedAtDesc(followingUsers);
-        posts.forEach(post -> Collections.reverse(post.getComments()));
+//        posts.forEach(post -> Collections.reverse(post.getComments()));
+        posts.forEach(post -> {
+            List<Comment> reversedComments = post.getComments().stream()
+                    .sorted(Comparator.comparing(Comment::getCreatedAt).reversed())
+                    .collect(Collectors.toList());
+            post.setComments(reversedComments);
+            
+        });
         
         return posts;
     }

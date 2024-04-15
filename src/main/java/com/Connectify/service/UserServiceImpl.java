@@ -11,11 +11,10 @@ import com.Connectify.repository.UserRepository;
 @Service
 public class UserServiceImpl extends FeedService implements UserService{
 	
-	@Autowired
-	private UserRepository userRepository;
 	
-	public UserServiceImpl() {
-		super();
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository) {
+		super(userRepository);
 	}
 
 	@Override

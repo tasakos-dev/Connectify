@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Connectify.entity.User;
-import com.Connectify.exception.UserNotExists;
+import com.Connectify.exception.UserNotExistsException;
 import com.Connectify.entity.Follower;
 import com.Connectify.repository.FollowerRepository;
+import com.Connectify.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ public class FollowerServiceImpl extends FeedService implements FollowerService{
 	private final FollowerRepository followerRepository;
 
     @Autowired
-    public FollowerServiceImpl(FollowerRepository followerRepository) {
+    public FollowerServiceImpl(FollowerRepository followerRepository, UserRepository userRepository) {
+    	super(userRepository);
         this.followerRepository = followerRepository;
     }
     
@@ -35,7 +37,7 @@ public class FollowerServiceImpl extends FeedService implements FollowerService{
     }
     
     @Override
-    public void followUser(String email, String emailToFollow) throws UserNotExists {
+    public void followUser(String email, String emailToFollow) throws UserNotExistsException {
         // Retrieve the user who wants to follow
         User user = userRepository.findByEmail(email);
 
@@ -43,7 +45,7 @@ public class FollowerServiceImpl extends FeedService implements FollowerService{
         User userToFollow = userRepository.findByEmail(emailToFollow);
         
         if (userToFollow == null) {
-        	throw new UserNotExists();        
+        	throw new UserNotExistsException();        
         }
 
         Follower newFollower = new Follower();

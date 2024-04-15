@@ -10,8 +10,8 @@ import com.Connectify.entity.Follower;
 
 import com.Connectify.entity.Post;
 import com.Connectify.entity.User;
-import com.Connectify.exception.MaxComment;
-import com.Connectify.exception.UserNotExists;
+import com.Connectify.exception.MaxCommentException;
+import com.Connectify.exception.UserNotExistsException;
 import com.Connectify.repository.CommentRepository;
 import com.Connectify.repository.FollowerRepository;
 import com.Connectify.repository.PostRepository;
@@ -29,8 +29,13 @@ import java.util.stream.Collectors;
 public class FeedService{
 
 
-	@Autowired
+	
     protected UserRepository userRepository;
+    
+    @Autowired
+    public FeedService(UserRepository userRepository) {
+    	this.userRepository = userRepository;
+	}
 
 }
 
