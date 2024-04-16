@@ -71,7 +71,6 @@ public class FeedController {
     
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute("content") String content, Principal principal) {
-    	System.err.println("hello");
     	String email = principal.getName();
     	
         postService.createPost(content, email);
@@ -86,8 +85,7 @@ public class FeedController {
         try {
         	commentService.addComment(email, postId, content);
 		} catch (MaxCommentException e) {
-			System.err.println(e.getMessage());
-			redirectAttributes.addAttribute("errorMessage", e.getMessage());
+			redirectAttributes.addAttribute("errorMessage", "User has exceeded the maximum comment limit for this post");
 		}
         
         return "redirect:/feed";

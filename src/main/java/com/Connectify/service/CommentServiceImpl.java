@@ -44,7 +44,7 @@ public class CommentServiceImpl extends FeedService implements CommentService{
 		} catch (DataAccessException e) {
 			Throwable rootCause = e.getRootCause();
 		    if (rootCause != null && rootCause.getMessage().contains("User has exceeded the maximum comment limit for this post")) {
-		        throw new MaxCommentException("User has exceeded the maximum comment limit for this post");
+		        throw new MaxCommentException();
 		    }}   
     }
 }

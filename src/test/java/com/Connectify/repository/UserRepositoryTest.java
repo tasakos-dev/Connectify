@@ -14,7 +14,7 @@ import com.Connectify.entity.User;
 @SpringBootTest
 @TestPropertySource(
  locations = "classpath:applicationTest.properties")
-class UserRepositoryTests {
+class UserRepositoryTest {
 
 	@Autowired
     private UserRepository userRepository;

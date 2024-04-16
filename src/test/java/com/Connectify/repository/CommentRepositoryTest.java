@@ -20,7 +20,7 @@ import com.Connectify.entity.User;
 @TestPropertySource(
 		 locations = "classpath:applicationTest.properties")
 @SpringBootTest
-class CommentRepositoryTests {
+class CommentRepositoryTest {
 	@Autowired
     private CommentRepository commentRepository;
 

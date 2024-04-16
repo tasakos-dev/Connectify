@@ -4,8 +4,8 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 @Suite
-@SelectClasses({ CommentRepositoryTests.class, FollowerRepositoryTests.class, PostRepositoryTests.class,
-		UserRepositoryTests.class })
+@SelectClasses({ CommentRepositoryTest.class, FollowerRepositoryTest.class, PostRepositoryTest.class,
+		UserRepositoryTest.class })
 public class AllTests {
 
 }
