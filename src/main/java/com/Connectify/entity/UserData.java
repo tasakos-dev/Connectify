@@ -2,7 +2,6 @@ package com.Connectify.entity;
 
 
 public class UserData {
-	private String name;
 	private String email;
 	private String password;
 	private boolean paidPlan;

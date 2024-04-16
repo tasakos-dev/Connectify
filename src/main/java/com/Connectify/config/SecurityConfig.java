@@ -18,10 +18,6 @@ import com.Connectify.service.login.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	
-
-     
     @Bean
     public UserDetailsService userDetailsServicee() {
         return new UserDetailsServiceImpl();
@@ -48,11 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-	// ZAS keep it simple - No need for custom login page
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-
 		http.authorizeRequests()
 			.antMatchers("/users/show_form", "/users/register*", "/")
 			.permitAll()
@@ -65,7 +58,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.cors().and().csrf().disable();
 					
-	}
-
-		
+	}	
 }

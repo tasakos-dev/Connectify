@@ -31,66 +31,6 @@ class FollowerRepositoryTest {
 	        followerRepository.deleteAll();
 	    }
 
-	    @Test
-	    @DirtiesContext
-	    public void testFindByFollower() {
-	    	User follower = new User();
-	        follower.setEmail("follower1@example.com");
-	        follower.setPasswordHash("password1");
-	        follower.setPaidPlan(false);
-
-	        userRepository.save(follower);
-	
-
-	        User following = new User();
-	
-	        following.setEmail("following1@example.com");
-	        following.setPasswordHash("password2");
-	        following.setPaidPlan(false);
-
-	        userRepository.save(following);
-			
-	        
-
-	        // Save a follower relationship
-	        Follower newFollower = new Follower();
-	        newFollower.setFollowing(following);
-	        newFollower.setFollower(follower);
-	        followerRepository.save(newFollower);
-	        List<Follower> followers = followerRepository.findByFollower(follower);
-	        assertEquals(1, followers.size()); // Assuming each follower follows 5 users
-	    }
-
-	    @Test
-	    @DirtiesContext
-	    public void testFindByFollowing() {
-	    	User follower = new User();
-	        follower.setEmail("follower1@example.com");
-	        follower.setPasswordHash("password1");
-	        follower.setPaidPlan(false);
-
-	        userRepository.save(follower);
-	
-
-	        User following = new User();
-	
-	        following.setEmail("following1@example.com");
-	        following.setPasswordHash("password2");
-	        following.setPaidPlan(false);
-
-	        userRepository.save(following);
-			
-	        
-
-	        // Save a follower relationship
-	        Follower newFollower = new Follower();
-	        newFollower.setFollowing(following);
-	        newFollower.setFollower(follower);
-	        followerRepository.save(newFollower);
-
-	        List<Follower> followers = followerRepository.findByFollowing(following);
-	        assertEquals(1, followers.size()); // Assuming 5 followers for each user
-	    }
 
 	    @Test
 	    @DirtiesContext

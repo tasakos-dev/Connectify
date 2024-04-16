@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.Connectify.config"},{"l":"com.Connectify.entity"},{"l":"com.Connectify.exception"},{"l":"com.Connectify.service.login"}]

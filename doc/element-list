@@ -1,0 +1,8 @@
+com.Connectify
+com.Connectify.config
+com.Connectify.controller
+com.Connectify.entity
+com.Connectify.exception
+com.Connectify.repository
+com.Connectify.service
+com.Connectify.service.login

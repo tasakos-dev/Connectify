@@ -23,6 +23,11 @@ import com.Connectify.service.UserService;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * Controller class for handling requests related to the feed page.
+ * @author tasakos
+ *
+ */
 @Controller
 @RequestMapping("/feed")
 public class FeedController {
@@ -41,6 +46,14 @@ public class FeedController {
         this.commentService = commentService;
     }
 
+    /**
+     * Displays the feed page with posts, user's own posts, and followers.
+     *
+     * @param model        the model to be populated with data for the view
+     * @param principal    the authenticated user principal
+     * @param errorMessage optional error message to display
+     * @return the view name to display ("feed")
+     */
     @GetMapping
     public String showFeed(Model model, Principal principal, @RequestParam(value = "errorMessage", required = false) String errorMessage) {
         String email = principal.getName();
@@ -69,6 +82,13 @@ public class FeedController {
         return "feed";
     }
     
+    /**
+     * Creates a new post.
+     *
+     * @param content   the content of the post
+     * @param principal the authenticated user principal
+     * @return the view name to redirect to ("redirect:/feed")
+     */
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute("content") String content, Principal principal) {
     	String email = principal.getName();
@@ -78,6 +98,15 @@ public class FeedController {
         return "redirect:/feed";
     }
     
+    /**
+     * Adds a comment to a post.
+     *
+     * @param postId             the ID of the post to comment on
+     * @param content            the content of the comment
+     * @param userDetails        the authenticated user details
+     * @param redirectAttributes attributes for redirecting with error message
+     * @return the view name to redirect to ("redirect:/feed")
+     */
     @PostMapping("/comment")
     public String addComment(@RequestParam("postId") Long postId, @RequestParam("content") String content, 
     		@AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
@@ -91,6 +120,13 @@ public class FeedController {
         return "redirect:/feed";
     }
     
+    /**
+     * Unfollows a user.
+     *
+     * @param followerId    the ID of the user to unfollow
+     * @param userDetails   the authenticated user details
+     * @return the view name to redirect to ("redirect:/feed")
+     */
     @PostMapping("/unfollow")
     public String unfollowUser(@RequestParam("followerId") Long followerId, @AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
@@ -98,6 +134,14 @@ public class FeedController {
         return "redirect:/feed";
     }
 
+    /**
+     * Follows a user.
+     *
+     * @param email             the email of the user to follow
+     * @param userDetails       the authenticated user details
+     * @param redirectAttributes attributes for redirecting with error message
+     * @return the view name to redirect to ("redirect:/feed")
+     */
     @PostMapping("/follow")
     public String followUser(@RequestParam("email") String email, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
         String myEmail = userDetails.getUsername();
